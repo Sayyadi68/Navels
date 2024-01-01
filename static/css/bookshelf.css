@@ -1,0 +1,167 @@
+/* css reset  */
+:root{
+    --my-font:'Harmattan',system-ui;
+    --text-color-w: #FFFFFF;
+    --my-font2:'Lugrasimo-Regular',system-ui ;
+    --nav-footer:#FFBF00;
+    --body-backcolor:#232020;
+    --all-text-color:#F4F4F4;
+}
+span,a{
+    color:var(--all-text-color);
+}
+
+*{
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+    font-family: var(--my-font);
+    user-select: none;
+    
+}
+body{
+    background-color: var(--body-backcolor);
+    
+}
+a{
+    text-decoration: none;
+    color: var(--text-color-w);
+}
+
+.HA-input , .HA-input::placeholder{
+    width: 150px;
+    direction: rtl;
+    font-size: 18px;
+    font-weight: bold;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    padding: 4px;
+}
+
+@font-face {
+    font-family:'Lugrasimo-Regular';
+    src: url(../fonts/Lugrasimo-Regular.ttf);
+}
+
+
+/* navbar */
+.navbar{
+    font-size: 20px;
+    width: 100%;
+    background-color: var(--nav-footer);
+    padding: 1.3rem;
+    color: var(--text-color-w);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 0px 0px 15px 15px;
+}
+
+
+
+/* footer */
+footer{
+    font-size: 18px;
+    direction: rtl;
+    width: 100%;
+    background-color: var(--nav-footer);
+    padding: 1.5rem;
+    color: var(--text-color-w);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 15px 15px 0px 0px;
+}
+
+
+/* phone menu */
+@media screen and (min-width:0px) and (max-width:720px){
+    .burger-menu{
+        height:0px ;
+        transition: all .3s ease-in-out;
+        overflow: hidden;
+        width: 100%;
+        background-color: var(--nav-footer);
+        display: flex;
+        position: absolute;
+        justify-content: center;
+        flex-direction: column;
+        right: 0px;
+        top: 100px;
+        direction: rtl;
+        border-radius: 15px 15px 0px 0px;
+        z-index: 1000;
+    }
+    .HBmenushow{
+        width: 100%;
+        background-color: var(--nav-footer);
+        display: flex;
+        position: absolute;
+        justify-content: center;
+        flex-direction: column;
+        right: 0px;
+        top: 100px;
+        direction: rtl;
+        border-radius: 15px 15px 0px 0px;
+        height: 190px;
+        overflow: hidden;
+        z-index: 1000;
+    }
+    .burger-menu a{
+        width: 100%;
+        padding: 6px 30px;
+        border-radius: 15px ;
+        transition: all .3s ease-in-out;
+        overflow: hidden;
+    }
+    .burger-menu a:hover{
+        background-color: #3A3535;
+    }
+
+    .burger-menu-btn{
+       display: block;
+       cursor: pointer;
+    }
+    .center-link{
+        display: none;
+    }
+}
+@media screen and (min-width:721px){
+    .burger-menu{
+        display: none;
+    }
+    .burger-menu-btn{
+        display: none;
+    }
+    .center-link{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+    }
+
+}
+
+
+
+/* scroller */
+
+::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+::-webkit-scrollbar-corner {
+    width: 40px;
+    height: 40px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 30px;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--nav-footer);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--nav-footer);
+}

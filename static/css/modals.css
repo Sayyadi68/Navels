@@ -1,0 +1,39 @@
+.login{
+    border: 2px solid #ffffff;
+    background-color: #333;
+    
+}
+.login h5, .login i{
+    color: white;
+}
+.login-spans{
+    color: white;
+}
+.login-textbox{
+    background-color: var(--nav-footer);
+    direction: rtl;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 13px;
+    border: none;
+    outline: none;
+    width: 93%;
+    color: var(--all-text-color);
+}
+
+.login-submit{
+    width: 93%;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 13px;
+    border: none;
+    outline: none;
+    color: white;
+    cursor: pointer;
+    background-color: green !important;
+}
+
+.login-submit:disabled{
+    cursor:default;
+    background-color: #4B4B63;
+}

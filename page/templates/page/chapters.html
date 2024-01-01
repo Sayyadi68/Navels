@@ -1,0 +1,78 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block titel %}Navels | {{storytitel}} {% endblock %}
+
+
+{% block links %}
+        <link rel="stylesheet" href="{% static 'css/cards-btns.css' %}">
+{% endblock %}
+
+
+
+{% block main %}
+    <div class="d-flex justify-content-center flex-column items-center " style="direction: rtl; 
+    ">
+        <div class="d-flex flex-row justify-content-between align-items-center">
+            <div class="mx-5 mb-3 mt-3 mt-lg-5 h3 text-light">
+                <a href="{% url 'index' %}" class="profile-text" style="cursor: pointer; text-decoration: underline;"> {{storytitel}} </a>
+                 / 
+                <span class="profile-text">چپتر ها</span>
+            </div>
+            <div  class="mx-5 mb-3 mt-3 mt-lg-5 h3 text-light">
+                <a href="{% url 'index' %}" class="fa-solid fa-arrow-left"></a>
+            </div>
+        </div>
+        <div class="mx-4" style="border-bottom:3px solid var(--text-color-w) "></div>
+
+        <div class="container-fluid">
+            <div class="px-lg-5">
+
+              <div class="row">
+
+
+                <!-- Gallery item -->
+
+
+                
+                {%for chapters in chapter_filter %}
+
+                            <div class=" col-12 col-xl-3 col-sm-6 col-lg-4 mt-4">
+
+                                <div>
+
+                                    <div class=" rounded-4 shadow-sm" style="background: #333;margin-bottom: 20px;">
+
+                                        <div class="pt-2 pb-2 card-description mx-auto w-100">
+    
+                                            <div class="mb-4 h3 text-center" id="titel_{{ chapters.ChapterTitel }}"><span>{{ chapters.ChapterTitel }}</span></div>
+                                            <div class="d-flex flex-row mt-2 gap-2"><span class="h5"> نویسنده: </span><span class="h4"> {{ chapters.writer }} </span></div>
+                                            <div class="mb-3 mt-3" style="border-bottom:3px solid white"></div>
+                                            <div class="d-flex flex-row mb-2 align-items-center justify-content-between">
+                                              
+                                                <input class=" mt-1 mx-2 p-1 px-3 rounded-2 border-0 bg-warning" type="button" value="مطالعه" onclick="location.href='{% url 'ReadStory' chaptername=chapters.ChapterTitel storytitel=storytitel%}'"  >
+
+                                            </div>
+                                            
+                                        </div>
+    
+                                    </div>
+
+                                </div>
+
+                            </div>
+ 
+                   
+                {% endfor %}
+                <!-- End -->
+
+            </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block scripts %}
+{% endblock %}
+

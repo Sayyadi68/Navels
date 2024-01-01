@@ -1,0 +1,174 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block titel %}Navels{% endblock %}
+
+
+{% block links %}
+        <link rel="stylesheet" href="{% static 'css/cards-btns.css' %}">
+
+{% endblock %}
+
+
+
+{% block main %}
+
+
+ 
+
+
+
+        <div class="d-flex justify-content-center flex-column items-center " style="direction: rtl;">
+
+            
+        <div class="mx-5 mb-3 mt-3 mt-lg-5 h3 text-light"><span class="profile-text">رمان هایه جدید</span></div>
+        <div class="mx-4" style="border-bottom:3px solid var(--text-color-w) "></div>
+        <div class="container-fluid">
+            <div class="px-lg-5 w-100">
+
+                <div class="cards-slider items" style="grid-template-columns: repeat({{Storys|length}},1fr);" id="slider1">
+
+                    <!-- Gallery item -->
+                    {% for storys in Storys %}
+ 
+                            <div >
+
+                                <div class=" menu-card rounded-4 shadow-sm" style="background: #333;margin-bottom: 20px;">
+
+                                    <div class="pt-2 pb-2 card-description mx-auto w-100">
+
+                                        <div class="mb-5 h3 text-center" id="titel_{{ storys.StoryTitel }}"><span>{{ storys.StoryTitel }}</span></div>
+                                        <div class="d-flex flex-row mt-2 gap-2"><span class="h5"> نویسنده:<a  href="{% url 'UserInfo' userinfo=storys.Writer%}" style="text-decoration: underline " > </span><span class="h4"> {{ storys.Writer }} </span></a></div>
+                                        <div class="d-flex flex-row mt-2 gap-2"><span class="h5"> ژانر: </span><span class="h4"> {{ storys.ganer }} </span></div>
+                                        <div class="d-flex flex-row mt-2 gap-2"><span class="h5"> خلاصه: </span><span class="h4" style="overflow: hidden; text-overflow: ellipsis;white-space: nowrap;"> {{ storys.summary }} </span></div>
+                                        <div class="mb-3 mt-3" style="border-bottom:3px solid white"></div>
+                                        <div class="d-flex flex-row mb-2 align-items-center justify-content-between">
+                                            <div>
+                                                <span class="mx-2 h5"> وضعیت انتشار :</span><span class="h4"> 
+                                                    {% if storys.status == True %}
+                                                        در انتشار
+                                                     {% else %}
+                                                        اتمام
+                                                    {% endif %}
+                                                </span>
+                                            </div>
+                                            <input class=" mt-1 mx-2 p-1 px-3 rounded-2 border-0 bg-warning" type="button" value="فصل ها" onclick="location.href='{% url 'chapters' storytitel=storys.StoryTitel %}'" >
+                                        </div>
+                                        
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                    {% endfor %}
+                    <!-- End -->
+
+                </div>
+
+
+                <div class="position-relative d-flex justify-content-between hidinmobile" style="bottom: 200px;">
+                    <button class="fa-solid fa-arrow-circle-right" style="position: relative; font-size: 25px; background: none; color: white; border: none;" type="button" onclick="Next1()"></button>
+                    <button class="fa-solid fa-arrow-circle-left" style="position: relative; font-size: 25px; background: none; color: white; border: none;" type="button" onclick="Previous1()"></button>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="mx-5 mb-3 mt-3 mt-lg-5 h3 text-light"><span class="profile-text">پرطرفدار</span></div>
+        <div class="mx-4" style="border-bottom:3px solid var(--text-color-w) "></div>
+        <div class="container-fluid">
+            <div class="px-lg-5">
+
+                <div class="cards-slider" id="slider2">
+
+
+                    <!-- Gallery item -->
+                        <a href="baba" class="">
+                            <div  >
+
+                                <div class=" menu-card rounded-4 shadow-sm" style="background: #333;margin-bottom: 20px;">
+                                    <img src="" alt="baner" class="ItemImg img-fluid card-img-top" style="border-radius:22px; padding:13px;">
+
+                                <div class="pt-2 pb-2 card-description mx-auto">
+
+                                    <span class="mb-5">اسم کتاب</span>
+                                    <div class="d-flex flex-row mt-3"><li class=""> ژانر  :</li><span> ... </span></div>
+                                    <li class="mb-3 mt-3">خلاصه داستان</li>
+                                    <div class="mb-3 mt-3" style="border-bottom:3px solid white"></div>
+                                    <div class="d-flex flex-row mb-2"><span class="mx-2"> وضعیت انتشار :</span><span> ... </span></div>
+
+                                </div>
+
+                                </div>
+
+                            </div>
+                        </a>
+                    <!-- End -->
+
+                </div>
+
+
+                <div class="position-relative d-flex justify-content-between hidinmobile" style="bottom: 200px;">
+                    <button class="fa-solid fa-arrow-circle-right" style="position: relative; font-size: 25px; background: none; color: white; border: none;" type="button" onclick="Next2()"></button>
+                    <button class="fa-solid fa-arrow-circle-left" style="position: relative; font-size: 25px; background: none; color: white; border: none;" type="button" onclick="Previous2()"></button>
+                </div>
+
+
+            </div>
+        </div>
+
+
+        <div class="mx-5 mb-3 mt-3 mt-lg-5 h3 text-light"><span class="profile-text">انتخاب سردبیر</span></div>
+        <div class="mx-4" style="border-bottom:3px solid var(--text-color-w) "></div>
+        <div class="container-fluid">
+            <div class="px-lg-5">
+
+                <div class="cards-slider" id="slider3">
+
+
+                    <!-- Gallery item -->
+                        <a href="baba" class="">
+                            <div  >
+
+                                <div class=" menu-card rounded-4 shadow-sm" style="background: #333;margin-bottom: 20px;">
+                                    <img src="" alt="baner" class="ItemImg img-fluid card-img-top" style="border-radius:22px; padding:13px;">
+
+                                <div class="pt-2 pb-2 card-description mx-auto">
+
+                                    <span class="mb-5">اسم کتاب</span>
+                                    <div class="d-flex flex-row mt-3"><li class=""> ژانر  :</li><span> ... </span></div>
+                                    <li class="mb-3 mt-3">خلاصه داستان</li>
+                                    <div class="mb-3 mt-3" style="border-bottom:3px solid white"></div>
+                                    <div class="d-flex flex-row mb-2"><span class="mx-2"> وضعیت انتشار :</span><span> ... </span></div>
+
+                                </div>
+
+                                </div>
+
+                            </div>
+                        </a>
+                    <!-- End -->
+
+                </div>
+
+
+                <div class="position-relative d-flex justify-content-between hidinmobile" style="bottom: 200px;">
+                    <button class="fa-solid fa-arrow-circle-right" style="position: relative; font-size: 25px; background: none; color: white; border: none;" type="button" onclick="Next3()"></button>
+                    <button class="fa-solid fa-arrow-circle-left" style="position: relative; font-size: 25px; background: none; color: white; border: none;" type="button" onclick="Previous3()"></button>
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}
+
+
+{% block scripts %}
+    <script src="{% static 'js/btns.js' %}"></script>
+{% endblock %}
+

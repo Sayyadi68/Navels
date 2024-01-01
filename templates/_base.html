@@ -1,0 +1,219 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>{% block titel %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/modals.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bookshelf.css' %}">
+    <link rel="stylesheet" href="{% static 'css/userpanel.css' %}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Harmattan:wght@500;600&display=swap" rel="stylesheet">
+
+    {% block links %}{% endblock %}
+
+</head>
+<body style="background: var(--body-backcolor)">
+
+
+    {#  Navbar  #}
+<header>
+        <navbar class="navbar">
+        <div >
+            <img src="../static/img/logo.jpg" width="60px" height="60px" alt="" style="border-radius: 50%;">
+        </div>
+
+        <!-- page links -->
+        <div class="center-link center-navbar-margin">
+            <a class="mx-2" href="">رمان ها</a>
+            <a class="mx-3" href="">فروشگاه</a>
+            <a class="mx-2" href="">دانلود کتاب</a>
+            <a href="" class="MenuItems mx-2">پادکست</a>
+            {% if user.is_authenticated %}
+                    <a class="mx-2" href="{% url 'profile' %}">پروفایل</a>
+            {% endif %}
+        </div>
+
+        <!-- user status -->
+            <div class="d-flex flex-row align-items-center justify-content-between navbar-right-items " id="UserItems">
+               {% if user.is_authenticated %}
+
+                    <div class="d-flex flex-row text-center justify-content-center align-items-center ">
+
+                        <div style="display: flex; flex-direction: row; margin-right: 7px">
+                            <button style="border: none ; background: none ; color: #FFFFFF ;cursor: pointer ; font-size: 16px"
+                                    onclick="location.href='{% url 'logout' %}' ">
+                                خروج
+                            </button>
+                            <span style="margin-left: 7px">|</span></div>
+                        <span class="usericon" style="font-size:25px; margin-right: 7px ; cursor:default">{{ request.user.username }}</span><i class="fa-solid fa-crown usericon" style="font-size:20px;"></i>
+
+                    </div>
+
+                {% else %}
+                    <div class="d-flex flex-row align-items-center ">
+
+                        <button style="padding-left: 60px; border: none ; background: none ;">
+                        </button>
+
+                        <a data-bs-toggle="modal" data-bs-target="#exampleModalToggle" class="usericon" id="login" style="cursor: pointer;">ورود</a>
+                        <i class="mx-2 fa-regular fa-user usericon"></i>
+                    </div>
+              {% endif %}
+
+                <div class="burger-menu-btn mt-2"><i class=" fa-solid fa-bars fa-lg ms-2" id="ShowMenu"></i></div>
+            </div>
+        <!-- phone menu -->
+        <ul class='burger-menu' id="humburger-menu">
+            <a href="" class="MenuItems">رمان ها</a>
+            <a href="" class="MenuItems">فروشگاه</a>
+            <a href="" class="MenuItems">دانلود کتاب</a>
+            <a href="" class="MenuItems">پادکست</a>
+            {% if user.is_authenticated %}
+                    <a href="{% url 'profile' %}" class="MenuItems">پروفایل</a>
+            {% endif %}
+        </ul>
+
+</navbar>
+
+    <!------------------------------ Modal login and sign in-------------------------------] -->
+    <div class="modal fade" id="exampleModalToggle" tabindex="-1" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0 w-100 d-flex flex-row">
+                    <button type="button" class="btn-close float-start ms-0" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    <img src=""
+                         class="logo-img modalLogo" alt="logo"/>
+                </div>
+                <div class="modal-body">
+                    <h1 class="h3 titel-sign"><strong>ورود</strong> یا <strong>عضویت</strong></h1>
+                    <form id="post-form py-4 my-3" >
+                        {% csrf_token %}
+                        <label for="validation-phonenumber" id="label_titel_input_phonenumber"
+                               class="form-label label-input-phonenumber mt-3">شماره تلفن همراه</label>
+                        <input class="form-control form-control-lg text-start font-weight-light my-2"
+                               onkeyup="check_input_send_phonenumber()" onchange="check_input_send_phonenumber()"
+                               onfocus="check_input_send_phonenumber()" name="phone" type="tel"
+                               id="validation-phonenumber" minlength="12" maxlength="12">
+                        <label for="validation-phonenumber" id="label_input_phonenumber"
+                               class="form-label mt-2 label-input-phonenumber">شماره با 9 0 شروع
+                            می‌شود</label>
+                        <button class="d-none" id="btn-hide" data-bs-target="#exampleModalToggle2" type="button"
+                                data-bs-toggle="modal"></button>
+                        <button onclick="send_ponenumber()" type="button"
+                                class="btn btn-secondary col-12 p-3 text-white mt-5" id="btnSend">ادامه
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!----------------------------- modal send sms and code -------------------------- -->
+    <div class="modal fade" id="exampleModalToggle2" aria-hidden="true"
+         aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <form class="modal-content">
+                {% csrf_token %}
+                <div class="modal-header border-0 pb-0 ">
+
+                    <i class="fad fa-right h4" data-bs-target="#exampleModalToggle" data-bs-toggle="modal"></i>
+                    <img src="{% static 'img/Logo.png' %}"
+                         class="logo-img modalLogo" alt="logo"/>
+                </div>
+                <div class="modal-body">
+                    <h3 class="h3 ">تأیید شماره </h3>
+                    <div class="col-12 mt-5">
+                        کد تایید به شماره
+                        <p class="d-inline" id="form-code-titel-phone_number"></p> ارسال شد.
+                    </div>
+                    <div class="col-12 float-start text-success my-4 pointer-event edit-phonenumber"
+                         data-bs-target="#exampleModalToggle" data-bs-toggle="modal">
+                        <i class="fa-solid fa-edit "></i> اصلاح شماره
+                    </div>
+
+                    <input id="import_code" onkeyup="check_input_send_code()" onchange="check_input_send_code()"
+                           onfocus="check_input_send_code()" class="form-control form-control-lg text-start  mt-4"
+                           type="text">
+                    <div class="d-flex justify-content-center mt-3 label-input-phonenumber"
+                         id="timer_send_retern">
+                        <div class="py-2" id="wait_countdown_timer">
+                            <p class="me-1 d-inline" id="p_timer"></p>
+                            شکبیا باشید
+                        </div>
+                        <p class="d-none" id="p_sned_retern" onclick="sned_retern_sms()">
+                            ارسال مجدد کد
+                        </p>
+                    </div>
+                    <button id="btn_send_code" type="button" onclick="send_code()"
+                            data-bs-target="#exampleModalToggle2" data-bs-toggle="modal"
+                            class="btn btn-secondary col-12 btn p-3  text-white ">ورود
+                    </button>
+                </div>
+            </form>
+            <div class="modal-footer border-0">
+            </div>
+        </div>
+    </div>
+
+</header>
+
+{% if messages %}
+    <div class="container d-flex flex-column align-items-center" role="alert" dir="rtl">
+        {% for message in messages %}
+            <div class="  alert alert-{{ message.tags }} text-center position-fixed w-75 d-flex flex-row" data-mdb-delay="3000" style="top: 15px ;z-index: 1000">
+
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <div class="position-relative text-center w-100" style="z-index: 100000">{{ message }}</div>
+
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+
+
+<main>
+
+    {% block main %}{% endblock %}
+
+</main>
+
+
+<footer >
+
+    <div>
+        <p class="h3 ">لینک هامون</p>
+        <li><a href="https://harfeto.timefriend.net/16814563220278">ناشناس چنل مون</a></li>
+        <li><a href="https://rubika.ir/joinc/CADGDAFG0YFDCMEEIIILZJNTNOWPBDUQ">چنل رمان مون</a></li>
+        <li><a href="https://rubika.ir/joing/EFICIDFE0TNKQWPGJQFHPFJONUCXVHTC">چنل گپ مون</a></li>
+        <li><a href="#">ایتا مون</a></li>
+    </div>
+
+    <div></div>
+    <div></div>
+
+</footer>
+
+    <!-- <script src="../static/js/all.min.js"></script> -->
+    <script src="{% static 'js/bookshelf.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/jquery-3.6.1.js' %}"></script>
+    <script src="{% static 'js/modal-sign_up.js' %}"></script>
+
+{% block scripts %}{% endblock %}
+
+
+
+</body>
+</html>

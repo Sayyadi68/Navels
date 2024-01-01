@@ -1,0 +1,135 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bookshelf.css' %}">
+    <link rel="stylesheet" href="{% static 'css/userpanel.css' %}">
+    <link rel="stylesheet" href="{% static 'css/texteditor.css' %}">
+    <link rel="stylesheet" href="{% static 'css/cards-btns.css' %}">
+
+
+{#    <script src="{% static 'js/tinymce.min.js' %}"></script>#}
+
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Harmattan:wght@500;600&display=swap" rel="stylesheet">
+
+
+    <title>Navels
+            | {{ chaptername }}
+    </title>
+</head>
+<body>
+ 
+    <main>
+ 
+        <div class="d-flex flex-column justify-content-center align-items-center m-3">
+
+            <div class="txt-editor ">
+
+                <div class="w-100 d-flex justify-content-between flex-row align-items-center p-3 h3 text-white">
+                    <a href="{% url 'chapters' storytitel=storytitel %}" class="fa-solid fa-arrow-left"></a>
+                    <a href="{% url 'chapters' storytitel=storytitel %}">
+                        {{chaptername}}
+                    </a>
+                </div>
+
+                <div class="h3 m-auto text-white" style="width: 90%; ">
+                   
+                        {% for chapters in chapter_filter %}
+                            <div class="commend-container-text-show" id="">
+                                    
+                                {{chapters.Section}}
+                            
+                            </div>
+                        {% endfor %}  
+                         
+                </div>
+                
+            </div>
+
+            
+
+
+        </div>
+
+        <div class="container-fluid"  style="direction: rtl;">
+            <div class="px-lg-5 w-100">
+
+                <div class="cards-slider items" style="grid-template-columns: repeat({{show_allChapters|length}},1fr);" id="slider1">
+
+                    <!-- Gallery item -->
+                    {%for chapters in show_allChapters %}
+
+                            <div >
+
+                                <div>
+
+                                    <div class=" menu-card rounded-4 shadow-sm" style="background: #333;margin-bottom: 20px; height: auto;">
+
+                                        <div class="pt-2 pb-2 card-description mx-auto w-100">
+    
+                                            <div class="mb-4 h3 text-center" id="titel_{{ chapters.ChapterTitel }}"><span>{{ chapters.ChapterTitel }}</span></div>
+                                            <div class="d-flex flex-row mt-2 gap-2"><span class="h5"> نویسنده: </span><span class="h4"> {{ chapters.writer }} </span></div>
+                                            <div class="mb-3 mt-3" style="border-bottom:3px solid white"></div>
+                                            <div class="d-flex flex-row mb-2 align-items-center justify-content-between">
+                                              
+                                                <input class=" mt-1 mx-2 p-1 px-3 rounded-2 border-0 bg-warning" type="button" value="مطالعه" onclick="location.href='{% url 'ReadStory' chaptername=chapters.ChapterTitel storytitel=storytitel%}'"  >
+
+                                            </div>
+                                            
+                                        </div>
+    
+                                    </div>
+
+                                </div>
+
+                            </div>
+ 
+                   
+                {% endfor %}
+                    <!-- End -->
+
+                </div>
+
+
+                <div class="position-relative d-flex justify-content-between hidinmobile" style="bottom: 130px;">
+                    <button class="fa-solid fa-arrow-circle-right" style="position: relative; font-size: 25px; background: none; color: white; border: none;" type="button" onclick="Next1()"></button>
+                    <button class="fa-solid fa-arrow-circle-left" style="position: relative; font-size: 25px; background: none; color: white; border: none;" type="button" onclick="Previous1()"></button>
+                </div>
+
+            </div>
+        </div>
+ 
+    </main>
+ 
+
+    <!-- <script src="../static/js/all.min.js"></script> -->
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/userpanel.js' %}"></script>
+    <script src="{% static 'js/jquery-3.6.1.js' %}"></script>
+    <script src="{% static 'js/btns.js' %}"></script>
+
+    <script src="{% static 'js/filter.js' %}"></script>
+
+    <script>
+
+        window.setTimeout(function() {
+            $(".alert").fadeTo(500, 0).slideUp(500, function(){
+                $(this).remove();
+            });
+        }, 4000);
+
+    </script>
+
+</body>
+</html>

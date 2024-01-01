@@ -1,0 +1,54 @@
+body{
+    background: url(../img/backgraund.jpg) no-repeat 10% fixed;
+    background-size:cover;
+    
+}
+
+.txt-editor{
+    width: 80%;
+    padding: 8px;
+    border-radius: 13px;
+    height: calc(100vh - 30px);
+    background: rgb(22 22 24 / 75%);
+    backdrop-filter: saturate(180%) blur(20px);
+    overflow-y: auto;
+}
+.tox-tinymce{
+    height: calc(100vh - 160px) !important;
+}
+
+.ql-toolbar{
+    color: black !important;
+    background-color: white;   
+}
+
+.ql-picker-label{
+    color: black !important;
+}
+.ql-picker-item .ql-selected::before{
+    color: black !important;
+}
+
+.ql-align-right .ql-direction-rtl{
+    text-align: left;
+}
+
+iframe{
+    direction: rtl !important;
+}
+p{
+    direction: rtl !important;
+}
+
+
+.commend-container-text-show{
+    width: 100% !important;
+    height: auto !important;
+    line-break:loose;
+    margin-top: 30px !important;
+    border-radius: 6px !important;
+    justify-content: center !important;
+    align-items: center !important;
+    overflow: hidden !important;
+    direction: rtl;
+}
